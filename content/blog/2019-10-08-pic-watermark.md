@@ -1,6 +1,7 @@
 ---
 title: 如何优雅地给网站图片加水印
 description: Serverless 在 Web 后端与应用服务端的应用
+keywords: Serverless 应用服务端,Serverless 应用,Serverless Web 后端
 date: 2019-10-08
 thumbnail: https://img.serverlesscloud.cn/2020114/1578990760585-v2-7d9090260d7f4a17539902a2c1ef8264_r.jpg
 categories:
@@ -10,6 +11,9 @@ authors:
   - Anycodes
 authorslink:
   - https://www.zhihu.com/people/liuyu-43-97
+tags:
+  - 图像处理
+  - Serverless
 ---
 
 > 很多论坛、博客在进行图片上传之后，都会给自己的图像加上水印，这样可以证明这张图片「属于我」或者是「来自我的博客/网站」。那么使用 Serverless 技术来加水印的方法比传统方法好在哪儿呢，本文将对此进行一个简单的分享。

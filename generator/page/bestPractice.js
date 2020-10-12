@@ -1,5 +1,6 @@
 // 列表页面的一页展示长度
 const path = require('path')
+const fs = require('fs')
 const PAGESIZE = 10
 
 /**
@@ -65,7 +66,12 @@ function createBestPracticeTask(graphql, createPage) {
     query {
       allMarkdownRemark(
         sort: { fields: frontmatter___date, order: DESC }
-        filter: { fileAbsolutePath: { regex: "//best-practice//" } }
+        filter: {
+          frontmatter: {
+            categories: { regex: "/best-practice|guides-and-tutorials/" }
+          }
+          fileAbsolutePath: { regex: "/best-practice|blog/" }
+        }
       ) {
         totalCount
         edges {
@@ -85,6 +91,10 @@ function createBestPracticeTask(graphql, createPage) {
               paragraphs
             }
             fileAbsolutePath
+            timeToRead
+            fields {
+              slug
+            }
           }
         }
       }
@@ -95,6 +105,10 @@ function createBestPracticeTask(graphql, createPage) {
     }
 
     const blogs = result.data.allMarkdownRemark.edges
+    if (blogs) {
+      const buff = JSON.stringify(blogs)
+      fs.writeFileSync('./src/constants/bestPractice.json', buff)
+    }
     createBestPractice(blogs, createPage)
     createBestPracticeList(blogs, createPage)
   })

@@ -1,0 +1,42 @@
+
+.scf-home-about-us-item {
+    padding: 25px;
+    box-shadow: 2px 2px 8px 0 rgba(0,0,0,.08);
+    border: 1px solid #eaeaea;
+    background-color: #fff;
+    cursor: pointer;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+}
+.scf-home-about-us {
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
+ .scf-media {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+}
+ .scf-home-about-us-item .scf-media__media {
+  width: 50px;
+}
+ .scf-media__content {
+  flex: auto;
+}
+ .scf-media__media img {
+  max-width: 100%;
+}
+ .scf-media__title {
+  font-size: 17px;
+  line-height: 24px;
+  margin-bottom: 5px;
+}
+ .scf-media__info {
+  font-size: 14px;
+  line-height: 20px;
+  color: #666;
+}
+.scf-media__media {
+  flex: none;
+  margin-right: 20px;
+}

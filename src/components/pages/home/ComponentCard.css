@@ -1,0 +1,46 @@
+.scf-component-recommend{
+    margin-bottom: 50px;
+    margin-top: -20px;
+}
+@media screen and (max-width: 992px) {
+  .scf-component-recommend{
+    margin-bottom: 50px;
+    margin-top: 20px;
+  }
+}
+.scf-best-practices {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+.scf-component-recommend .scf-article-item {
+  padding: 20px;
+  box-shadow: 2px 2px 8px 0 rgba(0,0,0,.08);
+  border: 1px solid #eaeaea;
+  height: 100%;
+}
+.scf-component-recommend .scf-article-item__img {
+  padding-top: 54.2%;
+}
+.scf-component-recommend .scf-grid {
+  margin-bottom: 9px;
+}
+.scf-component-recommend .scf-grid:last-child {
+  margin-bottom: -21px;
+}
+.scf-icon-favout {
+  width: 18px;
+  height: 18px;
+  background-repeat: no-repeat;
+  background-image: url(../../../assets/images/favout.svg);
+}
+
+.scf-icon-download {
+  width: 18px;
+  height: 18px;
+  background-repeat: no-repeat;
+  background-image: url(../../../assets/images/download.svg);
+}
+
+.scf-component-recommend .scf-article-item:hover {
+  box-shadow: 2px 10px 24px 0 rgba(0,0,0,.08);
+}

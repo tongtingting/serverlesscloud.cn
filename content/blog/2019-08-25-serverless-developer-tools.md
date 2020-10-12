@@ -1,6 +1,7 @@
 ---
 title: Serverless 的开发者工具建设
 description: 本文将介绍 Serverless 生态下的开发者工具，并简述这些工具是如何贯穿开发、调试、测试和部署的生命周期，提升开发者效率的。
+keywords: Serverless 调试,Serverless 测试,Serverless 开发者工具
 date: 2019-08-25
 thumbnail: https://img.serverlesscloud.cn/20191227/1577410169726-v2-39310147fa3da94245233a204c6144c1_1200x500.jpg
 categories:
@@ -9,6 +10,9 @@ authors:
   - Tinafang
 authorslink:
   - https://github.com/tinafangkunding
+tags:
+  - 工具建设
+  - serverless
 ---
 
 由于 Serverless 平台具备弹性扩缩、免运维、按需付费等特点，越来越多的公司和个人开始使用 Serverless 承载项目。但对于开发者而言，Serverless 一定程度上减少了开发难度，可以让我们聚焦业务逻辑进行开发；但同时，由于 Serverless 颠覆了传统的开发模式，从而在相关的开发工具，函数编排组织上也面临着重大挑战。

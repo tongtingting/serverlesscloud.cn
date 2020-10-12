@@ -1,43 +1,22 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import theme from '@src/constants/theme'
-import {
-  display,
-  DisplayProps,
-  position,
-  PositionProps,
-  top,
-  right,
-  TopProps,
-  RightProps,
-} from 'styled-system'
-import { Text, Box } from '../atoms'
-const Wrapper = styled(Box)<
-  DisplayProps & PositionProps & TopProps & RightProps
->`
+import { display, DisplayProps, position, PositionProps, top, right, TopProps, RightProps } from 'styled-system'
+import { Box } from '../atoms'
+import RightAd from '@src/components/RightAd/RightAd'
+
+const Wrapper = styled(Box)<DisplayProps & PositionProps & TopProps & RightProps>`
   ${position}
   ${top}
   ${right}
-  .markdown-body ol,
-  ul {
-    list-style: disc;
-
-    li {
-      line-height: 2;
-    }
-
-    padding-left: 2em;
     a {
       color: ${theme.colors.black};
-
       transition: all 0.3s ease;
-
       &:hover {
         color: ${theme.colors.serverlessRed};
         text-decoration: none;
       }
     }
-  }
 
   ${display}
 `
@@ -70,11 +49,15 @@ function generateCatalogsData(ele: Element) {
 
 function generateCatalogsHtml(data: any) {
   if (data.length) {
-    return `<ul>${data
+    return `<ul class="scf-toc-list">${data
       .map(o =>
         o.length
-          ? `<li>${o.map(x => `${generateCatalogsHtml(x)}`).join('')}</li>`
-          : `<li>${generateCatalogsHtml(o)}</li>`
+          ? `<li class="scf-toc-list__item" key=${o}><span class="scf-toc-list__item-label">${o
+              .map(x => `${generateCatalogsHtml(x)}`)
+              .join('')}</span></li>`
+          : `<li class="scf-toc-list__item has-sub-list" key=${o}><span class="scf-toc-list__item-label">${generateCatalogsHtml(
+              o
+            )}</span></li>`
       )
       .join('')}</ul>`
   }
@@ -97,7 +80,7 @@ export default function(props: { html: string }) {
         ele.innerHTML = props.html
 
         const catalogsData = generateCatalogsData(ele.children[0])
-        const catalogsHtml = generateCatalogsHtml(catalogsData)
+        const catalogsHtml = '<span class="scf-toc__title">目录</span>' + generateCatalogsHtml(catalogsData)
         setCatalogHtml(catalogsHtml)
       } catch (err) {
         setCatalogHtml(props.html)
@@ -111,9 +94,8 @@ export default function(props: { html: string }) {
     }
 
     const onScroll = function() {
-      const windowScrollTop =
-        document.body.scrollTop || document.documentElement.scrollTop
-      if (windowScrollTop > eleScrollTop) {
+      const windowScrollTop = document.body.scrollTop || document.documentElement.scrollTop
+      if (windowScrollTop > eleScrollTop + 200) {
         setIsFixed(true)
       } else {
         setIsFixed(false)
@@ -124,20 +106,31 @@ export default function(props: { html: string }) {
   }, [eleScrollTop])
 
   return (
-    <Wrapper
-      ref={eleRef}
-      position={isFixed ? 'fixed' : 'relative'}
-      top={0}
-      mt="40px"
-      display={['none', 'none', 'none', 'block', 'block']}
-    >
-      <Text fontSize="18px" mb="30px" fontWeight="bold">
-        目录
-      </Text>
-      <div
-        className="markdown-body"
-        dangerouslySetInnerHTML={{ __html: catalogHtml }}
-      ></div>
-    </Wrapper>
+    <Box className="scf-grid__item-8" ref={eleRef}>
+      <Box className="scf-box scf-home-active" pb={20}>
+        <div className="list-right">
+          <RightAd />
+        </div>
+      </Box>
+      <Wrapper
+        className="scf-grid__box"
+        ref={eleRef}
+        // position={isFixed
+        // ? 'fixed'
+        // : 'relative'}
+        // top={isFixed
+        //   ? 20
+        //   : 0}
+        width={1}
+        display={['none', 'none', 'none', 'block', 'block']}
+      >
+        <Box
+          className="scf-toc"
+          dangerouslySetInnerHTML={{
+            __html: catalogHtml,
+          }}
+        ></Box>
+      </Wrapper>
+    </Box>
   )
 }

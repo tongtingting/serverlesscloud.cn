@@ -1,6 +1,7 @@
 ---
 title: Serverless 的运行原理与组件架构
 description: 本文重点探讨下开发者使用 Serverless 时经常遇到的一些问题，以及如何解决
+keywords: Serverless 运行原理,Serverless 组件架构
 date: 2019-08-21
 thumbnail: https://img.serverlesscloud.cn/20191227/1577409288454-v2-577c2b21d600e3ea07f156f3e9d2d6b8_1200x500.jpg
 categories:
@@ -9,6 +10,9 @@ authors:
   - Alfred Huang
 authorslink:
   - https://zhuanlan.zhihu.com/ServerlessGo
+tags:
+  - 运行原理
+  - serverless
 ---
 
 过去一年，我们和大量 Serverless 用户进行了线上和线下的交流，了解大家的业务场景、对 Serverless 的看法和使用体验。

@@ -1,0 +1,32 @@
+.scf-home-about-item {
+  box-shadow: 2px 2px 8px 0 rgba(0,0,0,.08);
+  border: 1px solid #eaeaea;
+  background-color: #fff;
+  padding: 20px;
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+.scf-common-question-bg{
+  width:100%;
+  padding: 20px 0px;
+  background: url('../../../assets/images/box-bg.png');
+}
+.scf-common-question-bg .scf-box__header-title {
+  background: none !important;
+  font-weight: 600;
+}
+.scf-home-about-item__intro {
+  margin-top: 10px;
+  line-height: 20px;
+  font-size: 14px;
+  color: #666;
+}
+.scf-home-about {
+  padding-top: 20px;
+  padding-bottom: 60px;
+  background-image: url(../../../assets/images/box-title-bg.svg);
+}
+.scf-home-about .scf-box__header-title{
+  background: none !important;
+}

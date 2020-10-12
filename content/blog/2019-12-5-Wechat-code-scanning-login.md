@@ -1,12 +1,15 @@
 ---
 title: 极简配置，业务上云只需 3min
 description: Serverless Framework 最新发布微信扫码一键登录能力，支持用户在本地环境扫码注册登陆。
+keywords: Serverless 微信扫码一键登录,Serverless 本地环境扫码
 date: 2019-12-04
 thumbnail: https://hello-world-1253970226.cos.ap-chengdu.myqcloud.com/wechat.png
 categories:
   - news
 authors:
   - liujiang
+tags:
+  - serverless
 ---
 
 为了简化账号配置环节，实现本地一键开发部署，Serverless Framework 发布了微信扫码一键登录能力，支持用户在 Serverless Framework 环境扫码注册登陆，用户无需登录控制台，可全程在本地完成应用的部署。
@@ -20,7 +23,7 @@ authors:
 安装前提：
 
 - Node.js（Node.js 版本需不低于 8.6，，建议使用 Node.js 10.0 及以上版本），具体可参考 [Node.js 安装指南](https://nodejs.org/zh-cn/download/)
-- Serverless Framework CLI（1.57.0 或以上的版本），
+- serverless Framework CLI（1.57.0 或以上的版本），
   在命令行中运行如下命令即可安装 Serverless Framework CLI
 
 ```

@@ -1,14 +1,18 @@
 ---
 title: 深入浅出 Serverless：优势、意义与应用
 description: 本文对 Serverless 的前瞻和落地应用进行了深入却易懂的诠释
+keywords: Serverless 优势,Serverless 意义,Serverless 应用
 date: 2019-12-09
 thumbnail: https://img.serverlesscloud.cn/20191227/1577411056121-v2-a72ab46370bfdcd6d32b65b592ab4552_1200x500.jpg
 categories:
-  - guides-and-tutorials
+  - news
 authors:
   - jenswang
 authorslink:
   - https://www.zhihu.com/people/jenswang
+tags:
+  - 云计算
+  - Serverless
 ---
 
 Serverless 是炙手可热的技术，被认为是云计算发展的未来方向。尤其是在前端研发领域，使用 Node 开发云函数，可以让前端工程师更加专注于业务逻辑，实现全栈工程师的角色转变。

@@ -1,14 +1,18 @@
 ---
 title: 基于 Serverless Component 全栈解决方案 Ⅱ
 description: 如何借助 Serverless Component 快速开发全栈 Web 应用 - 续集
+keywords: Serverless Component,全栈 Web 应用,全栈解决方案
 date: 2019-12-11
-thumbnail: https://main.qcloudimg.com/raw/2f3d4de6be4bc19436843a0b75b8f367.png
+thumbnail: https://img.serverlesscloud.cn/20191226/1577353101878-vue.js.png
 categories:
   - best-practice
 authors:
   - yugasun
 authorslink:
   - https://github.com/yugasun
+tags:
+  - Serverless
+  - 全栈应用
 ---
 
 虽然之前的文章 [基于 Serverless Component 的全栈解决方案](https://yugasun.com/post/serverless-fullstack-vue-practice.html) 介绍了如何借助 Serverless Component 快速搭建 `Restful API` 后端服务 和 `Vue.js + Parcel` 的前端开发架构，但是最终部署后，腾讯云 COS 的访问 URL 并非自定义的，而且实际应用中，我们更偏向于使用自定义域名，同时静态文件一般都会通过 CDN 加速。那么如何为之前部署的静态网站配置 CDN 加速域名呢？
@@ -208,8 +212,13 @@ async getUsers() {
 
 以上基于腾讯云 [Serverless Framework](https://cloud.tencent.com/product/sf) 来实现。到这里，有关 `Serverless Component` 全栈解决方案的全部内容就到此结束啦！
 
+---
+<div id='scf-deploy-iframe-or-md'></div>
+
+---
+
 > **传送门：**
-> - GitHub: [github.com/serverless](https://github.com/serverless/serverless/blob/master/README_CN.md) 
+> - GitHub: [github.com/serverless](https://github.com/serverless/serverless/blob/master/README_CN.md)
 > - 官网：[serverless.com](https://serverless.com/)
 
 欢迎访问：[Serverless 中文网](https://serverlesscloud.cn/)，您可以在 [最佳实践](https://serverlesscloud.cn/best-practice) 里体验更多关于 Serverless 应用的开发！

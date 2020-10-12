@@ -1,6 +1,7 @@
 ---
 title: 如何开发自己的第一个 Serverless Component
 description: 我们分享了不少基于 Component 的最佳实践案例，本文教你如何自己开发一个 Component！
+keywords: Serverless Component,最佳实践案例,开发Component,实践案例
 date: 2019-12-12
 thumbnail: https://img.serverlesscloud.cn/20191230/1577673977066-16ef85f25ee1af09.jpg
 categories:
@@ -9,6 +10,9 @@ authors:
   - yugasun
 authorslink:
   - https://yugasun.com
+tags:
+  - Wintersmith
+  - Component
 ---
 
 ## 前言
@@ -279,8 +283,15 @@ const cdnComp = await this.load('@serverless/tencent-cdn', 'cdnComp');
 
 以上基于腾讯云 [Serverless Framework](https://cloud.tencent.com/product/sf) 来实现，这里还有个 Serverless Component 开发模板，可以帮你快速开发一个 Serverless Component：[模板链接](https://github.com/yugasun/serverless-component-template)，英文好的话可以查看这两篇内容[《How to write your first Serverless Component》](https://serverless.com/blog/how-write-first-serverless-component)和[《Building Serverless Components》](https://github.com/serverless/components/#building-components)
 
+
+
+---
+<div id='scf-deploy-iframe-or-md'></div>
+
+---
+
 > **传送门：**
-> - GitHub: [github.com/serverless](https://github.com/serverless/serverless/blob/master/README_CN.md) 
+> - GitHub: [github.com/serverless](https://github.com/serverless/serverless/blob/master/README_CN.md)
 > - 官网：[serverless.com](https://serverless.com/)
 
 欢迎访问：[Serverless 中文网](https://serverlesscloud.cn/)，您可以在 [最佳实践](https://serverlesscloud.cn/best-practice) 里体验更多关于 Serverless 应用的开发！

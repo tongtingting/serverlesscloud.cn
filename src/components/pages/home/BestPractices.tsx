@@ -1,16 +1,9 @@
 import * as React from 'react'
-import {
-  Flex,
-  Button,
-  Background,
-  Container,
-  Center,
-} from '@src/components/atoms'
-import theme from '@src/constants/theme'
-import { MainTitle } from '@src/components/pages/home/Title'
+import { Container, Box } from '@src/components/atoms'
 import { StaticQuery, graphql, Link } from 'gatsby'
 import { Blog, GraphqlBlogResult } from '@src/types'
 import BlogCard from './BlogCard'
+import './BestPractices.css'
 
 type BestPractice = Blog
 
@@ -20,23 +13,18 @@ interface Props {
 
 function Blogs({ blogs }: Props) {
   return (
-    <Container
-      width={['100%', '100%', '100%', 'auto']}
-      maxWidth={['100%', '100%', '100%', '85%']}
-    >
-      <Flex
-        flexDirection={['column', 'column', 'row', 'row', 'row']}
-        flexWrap={['initial', 'initial', 'wrap', 'wrap', 'initial']}
-        justifyContent={['initial', 'initial', 'center']}
-        width={[1]}
-        mb={[32, 32, 0]}
-        mt={[0, 0, 32]}
-      >
-        {blogs.map(blog => (
+    <Box className="scf-box__body" id="scf-box-home-best-practices">
+      <Box className="scf-grid">
+        {blogs.slice(0, 3).map(blog => (
           <BlogCard key={blog.node.id} blog={blog} />
         ))}
-      </Flex>
-    </Container>
+      </Box>
+      <Box className="scf-grid">
+        {blogs.slice(3, 6).map(blog => (
+          <BlogCard key={blog.node.id} blog={blog} />
+        ))}
+      </Box>
+    </Box>
   )
 }
 
@@ -47,8 +35,13 @@ export default function() {
         query {
           blogs: allMarkdownRemark(
             sort: { fields: frontmatter___date, order: DESC }
-            limit: 3
-            filter: { fileAbsolutePath: { regex: "//best-practice//" } }
+            limit: 6
+            filter: {
+              frontmatter: {
+                categories: { regex: "/best-practice|guides-and-tutorials/" }
+              }
+              fileAbsolutePath: { regex: "/best-practice|blog/" }
+            }
           ) {
             edges {
               node {
@@ -70,24 +63,19 @@ export default function() {
       `}
       render={({ blogs }: { blogs: GraphqlBlogResult }) => {
         return (
-          <Background
-            background={theme.colors.gray[0]}
-            pt={'40px'}
-            pb={'40px'}
-            width={1}
-          >
-            <Center flexDirection="column">
-              <MainTitle>最佳实践</MainTitle>
-
+          <Box className="scf-best-practices">
+            <Container width={[1, 1, 1, 912, 0.76, 1200]} px={0} pt={30}>
+              <Box className="scf-box__header">
+                <div className="scf-box__header-title">
+                  <h3>最佳实践</h3>
+                </div>
+                <div className="scf-box__header-more">
+                  <Link to="/best-practice">更多推荐 &gt;</Link>
+                </div>
+              </Box>
               <Blogs blogs={blogs.edges} />
-
-              <Link to="/best-practice">
-                <Button mt={[0, 0, '30px']} mb="30px" theme={theme}>
-                  更多实践
-                </Button>
-              </Link>
-            </Center>
-          </Background>
+            </Container>
+          </Box>
         )
       }}
     />

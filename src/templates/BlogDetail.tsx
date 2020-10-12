@@ -1,40 +1,30 @@
 import * as React from 'react'
-import { graphql } from 'gatsby'
+import crypto from 'crypto'
+import { graphql, Link } from 'gatsby'
 import Layout from '@src/layouts/HeaderNotFixedLayout'
-import {
-  Flex,
-  Container,
-  Box,
-  BackgroundProps,
-  Text,
-  InlineBlock,
-} from '@src/components/atoms'
+import { Box, InlineBlock, Container } from '@src/components/atoms'
+import Helmet from '@src/components/Helmet'
 import { Blog, GraphqlBlogResult } from '@src/types'
-import Breadcrumbs from '@src/components/Breadcrumbs'
 import styled from 'styled-components'
 import Markdown from '@src/components/Markdown'
-import BlogCatalogs from '@src/components/Markdown/Catalogs'
 import Category from '@src/components/pages/blogList/CategoryList'
-import Recommend from '@src/components/pages/blog/RecommendList'
 import theme from '@src/constants/theme'
-import Helmet from '@src/components/Helmet'
-import {
-  background,
-  display,
-  DisplayProps,
-  space,
-  SpaceProps,
-} from 'styled-system'
-import { formateDate } from '@src/utils'
+import { display, DisplayProps, space, SpaceProps } from 'styled-system'
+import { fitPromote, formateDate } from '@src/utils'
+import BlogCatalogs from '@src/components/Markdown/Catalogs'
 import ExternalLink from '@src/components/Link/ExternalLink'
 import CategoryLink from '@src/components/Link/CategoryLink'
-import BackToTop from '@src/components/BackToTop'
-import PreNext from '@src/components/PreNext'
-import Content from '@src/components/Content'
+import Activitys from '@src/components/pages/home/Activitys'
+import RecommandRead from '@src/components/pages/home/RecommandRead'
+import { debounce } from '@src/utils'
+import userBehaviorStatistics from '@src/utils/statistics'
+import { v4 as uuidv4 } from 'uuid'
+import './BlogDetail.css'
+
+const baseCategoryUrl = '/tags'
 
 const ExternalLinkWrapper = styled(InlineBlock)`
   margin-left: 5px;
-
   a {
     transition: all 0.3s ease;
   }
@@ -44,129 +34,206 @@ const ExternalLinkWrapper = styled(InlineBlock)`
     }
   }
 `
-
-interface Props {
-  data: {
-    currentBlog: Blog['node']
-    previousBlog: Blog['node']
-    nextBlog: Blog['node']
-    recommendBlogs: GraphqlBlogResult
-  }
-  location: any
-}
-
 const LinkWrapper = styled.div<DisplayProps & SpaceProps>`
   ${display}
   ${space}
   a {
     margin: 20px 0;
-
     transition: all 0.3s ease;
-
     line-height: 22px;
-
     &:hover {
       color: ${theme.colors.serverlessRed};
     }
   }
 `
+interface Props {
+  data: {
+    currentBlog: Blog['node']
+    previousBlog: Blog['node']
+    nextBlog: Blog['node']
+    srecommendBlogs: GraphqlBlogResult
+  }
+  location: any
+}
 
-const BoxWithBackground = styled(Box)<BackgroundProps>`
-  ${background}
-  display: flex;
-  flex-direction: column;
-  border-radius: 5px;
-`
+const BlogDetail = ({ data: { currentBlog }, location }: Props) => {
+  const [uuid, setUuid] = React.useState(uuidv4())
+  const [isShowAll, setIsShowAll] = React.useState(false)
 
-const BlogDetail = ({
-  data: { currentBlog, previousBlog, nextBlog, recommendBlogs },
-  location,
-}: Props) => {
+  const onToggleShow = () => {
+    userBehaviorStatistics({ dataType: 'showAll', uuid })
+    setIsShowAll(true)
+  }
+
+  React.useEffect(() => {
+    fitPromote()
+    var md5 = crypto.createHash('md5')
+    var id = md5.update(currentBlog.fields.slug).digest('hex')
+
+    setIsShowAll(false)
+    userBehaviorStatistics({
+      dataType: 'startViewPage',
+      acticleType: 2,
+      uuid,
+      acticleId: id,
+      acticleTitle: currentBlog.frontmatter.title,
+    })
+    function isInViewPort(el) {
+      const viewPortHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+      const top = el.getBoundingClientRect() && el.getBoundingClientRect().top
+      return top <= viewPortHeight + 100
+    }
+    const onScroll = debounce(() => {
+      const isEndViewPage = isInViewPort(document.getElementById('EndBlogDetail'))
+      const isShowCode =
+        document.getElementsByTagName('code').length && isInViewPort(document.getElementsByTagName('code')[0])
+      if (isEndViewPage) {
+        userBehaviorStatistics({ dataType: 'endViewPage', uuid })
+      }
+      if (isShowCode) {
+        userBehaviorStatistics({ dataType: 'startViewCode', uuid })
+      }
+    }, 50)
+
+    const onCopy = el => {
+      if (el.target.tagName === 'CODE') {
+        userBehaviorStatistics({ dataType: 'copyCode', uuid })
+      }
+    }
+
+    document.addEventListener('copy', onCopy)
+    document.addEventListener('scroll', onScroll)
+
+    function reportPv(id, fn) {
+      const data = {
+        article: id,
+      }
+      const api = 'https://service-94w2imn4-1300862921.gz.apigw.tencentcs.com/release/report/article'
+      fetch(api, {
+        body: JSON.stringify(data),
+        method: 'POST',
+      })
+        .then(response => response.json())
+        .then(response => {
+          fn(null, response)
+        })
+        .catch(error => {
+          fn(error, null)
+        })
+    }
+
+    reportPv(id, function(error, response) {
+      if (error || response.error) {
+        console.log(error || response.error)
+      }
+    })
+
+    const copyButtonList = document.getElementsByClassName('gatsby-code-button')
+    for (var i = 0; i < copyButtonList.length; ++i) {
+      ;(function(i) {
+        const button: HTMLButtonElement = copyButtonList[i] as HTMLButtonElement
+        button.onclick = function() {
+          userBehaviorStatistics({ dataType: 'copyCode', uuid })
+        }
+      })(i)
+    }
+
+    return () => {
+      document.removeEventListener('copy', onCopy)
+      document.removeEventListener('scroll', onScroll)
+    }
+  }, [uuid])
+
   return (
     <Layout>
       <Helmet {...currentBlog.frontmatter} location={location} />
-      <Breadcrumbs>{currentBlog.frontmatter.title}</Breadcrumbs>
-      <Content>
-        <Box
-          width={[0.9, 0.9, 0.9, 0.72]}
-          py={'40px'}
-          px={[0, 0, 0, '10px', 0, 0]}
-        >
-          <BoxWithBackground
-            mb="10px"
-            py="10px"
-            px="20px"
-            background={theme.colors.gray[1]}
-            width={1}
-          >
-            <Text my="5px">
-              发布于: {formateDate(currentBlog.frontmatter.date)}
-            </Text>
-            <Text my="5px">
-              作者:
-              {currentBlog.frontmatter.authors.map((author, index) => (
-                <ExternalLinkWrapper key={author}>
-                  {currentBlog.frontmatter.authorslink &&
-                  currentBlog.frontmatter.authorslink[index] ? (
-                    <ExternalLink
-                      to={currentBlog.frontmatter.authorslink[index]}
-                    >
-                      {author}
-                    </ExternalLink>
-                  ) : (
-                    author
-                  )}
-                </ExternalLinkWrapper>
-              ))}
-            </Text>
-            {currentBlog.frontmatter.translators &&
-            currentBlog.frontmatter.translators.length ? (
-              <Text my="5px">
-                译者:
-                {currentBlog.frontmatter.translators.map(
-                  (translator, index) => (
-                    <ExternalLinkWrapper key={translator}>
-                      {currentBlog.frontmatter.translatorslink &&
-                      currentBlog.frontmatter.translatorslink[index] ? (
-                        <ExternalLink
-                          to={currentBlog.frontmatter.translatorslink[index]}
+      <Category location={location} isDetail={true} id="scf-blog-detail-header" />
+      <Box className="scf-content" style={{ marginTop: 0 }}>
+        <Box className="scf-page-blog-detail scf-layout-pattern">
+          <Box className="scf-home-block">
+            <Container width={[1, 1, 1, 912, 0.76, 1200]} px={0}>
+              <Box className="scf-detail">
+                <Box className="scf-grid">
+                  <Box className="scf-grid__item-16">
+                    <Box className="scf-grid__box  scf-detail__content">
+                      <Box className="scf-detail__docs">
+                        <h1 className="scf-detail-docs__title">{currentBlog.frontmatter.title}</h1>
+                        <Box className="scf-detail-docs__info">
+                          <p>
+                            作者：
+                            {currentBlog.frontmatter.authors.map((author, index) => (
+                              <ExternalLinkWrapper key={author}>
+                                {currentBlog.frontmatter.authorslink && currentBlog.frontmatter.authorslink[index] ? (
+                                  <ExternalLink to={currentBlog.frontmatter.authorslink[index]}>{author}</ExternalLink>
+                                ) : (
+                                  author
+                                )}
+                              </ExternalLinkWrapper>
+                            ))}
+                          </p>
+                          <p>发布于： {formateDate(currentBlog.frontmatter.date)}</p>
+                          {currentBlog.frontmatter.categories && currentBlog.frontmatter.categories.length ? (
+                            <p>
+                              归档于：{' '}
+                              {currentBlog.frontmatter.categories.map(o => (
+                                <LinkWrapper key={o} display="inline-block" ml="5px">
+                                  <CategoryLink category={o} />
+                                </LinkWrapper>
+                              ))}
+                            </p>
+                          ) : null}
+                          {currentBlog.frontmatter.tags && currentBlog.frontmatter.tags.length ? (
+                            <p>
+                              标签：
+                              {currentBlog.frontmatter.tags.map(tag => (
+                                <Link to={`${baseCategoryUrl}/${tag}`} key={tag}>
+                                  <span className="scf-seotag__item" key={tag}>
+                                    {tag}
+                                  </span>
+                                </Link>
+                              ))}
+                            </p>
+                          ) : null}
+                        </Box>
+                        <Box
+                          style={
+                            !isShowAll
+                              ? {
+                                  height: '500px',
+                                  overflow: 'hidden',
+                                }
+                              : {}
+                          }
                         >
-                          {translator}
-                        </ExternalLink>
-                      ) : (
-                        translator
-                      )}
-                    </ExternalLinkWrapper>
-                  )
-                )}
-              </Text>
-            ) : null}
-            {currentBlog.frontmatter.categories &&
-            currentBlog.frontmatter.categories.length ? (
-              <Text my="5px">
-                归档于:
-                {currentBlog.frontmatter.categories.map(o => (
-                  <LinkWrapper key={o} display="inline-block" ml="5px">
-                    <CategoryLink category={o} />
-                  </LinkWrapper>
-                ))}
-              </Text>
-            ) : null}
-          </BoxWithBackground>
-
-          <Markdown html={currentBlog.html as string}></Markdown>
-
-          <PreNext next={nextBlog} previous={previousBlog} />
+                          <Markdown html={currentBlog.html as string}></Markdown>
+                        </Box>
+                      </Box>
+                      {!isShowAll ? (
+                        <Box className="scf-detail__show-more">
+                          <Box className="scf-detail__mask"></Box>
+                          <button className="scf-btn scf-btn--line" onClick={onToggleShow}>
+                            展开阅读全文
+                          </button>
+                        </Box>
+                      ) : null}
+                    </Box>
+                  </Box>
+                  <BlogCatalogs html={currentBlog.tableOfContents} />
+                </Box>
+              </Box>
+            </Container>
+            <div id="EndBlogDetail" />
+          </Box>
+          <Box className="scf-home-block">
+            <Container width={[1, 1, 1, 912, 0.76, 1200]} px={0}>
+              <Box className="scf-grid">
+                <RecommandRead />
+                <Activitys />
+              </Box>
+            </Container>
+          </Box>
         </Box>
-
-        <Box width={[0.9, 0.9, 0.9, 0.25]}>
-          <Recommend width={[1]} blogs={recommendBlogs.edges} />
-          <Category width={[1]} />
-          <BlogCatalogs html={currentBlog.tableOfContents} />
-        </Box>
-      </Content>
-
-      <BackToTop />
+      </Box>
     </Layout>
   )
 }
@@ -186,6 +253,7 @@ export const query = graphql`
       authorslink
       translators
       translatorslink
+      tags
     }
     wordCount {
       words
@@ -198,12 +266,7 @@ export const query = graphql`
     }
   }
 
-  query BlogDetails(
-    $blogId: String!
-    $previousBlogId: String
-    $nextBlogId: String
-    $categories: [String!]
-  ) {
+  query BlogDetails($blogId: String!, $previousBlogId: String, $nextBlogId: String, $categories: [String!]) {
     currentBlog: markdownRemark(id: { eq: $blogId }) {
       ...blogFields
       html
@@ -222,7 +285,7 @@ export const query = graphql`
       filter: {
         id: { ne: $blogId }
         frontmatter: { date: { ne: null }, categories: { in: $categories } }
-        fileAbsolutePath: { regex: "//blog//" }
+        fileAbsolutePath: { regex: "/blog/" }
       }
       limit: 8
     ) {

@@ -1,105 +1,56 @@
 import * as React from 'react'
-import {
-  Flex,
-  Box,
-  Column,
-  Text,
-  Button,
-  Background,
-  Row,
-  Image,
-} from '@src/components/atoms'
-import theme from '@src/constants/theme'
-import styled from 'styled-components'
 import { Blog } from '@src/types'
-import { width } from 'styled-system'
-import BlogDetailLink from '@src/components/Link/BlogDetailLink'
-import { generateCategoryText } from '@src/components/Link/CategoryLink'
+import crypto from 'crypto'
+import { Link } from 'gatsby'
 
-import { formateDate } from '@src/utils'
-
-const InlineText = styled(Text)`
-  display: inline-block;
-  padding: 0 4px;
-  line-height: 1.5;
-`
-
-const ColumnWithHeight = styled(Column)`
-  height: 100%;
-`
-
-const BoxWithFlex = styled(Box)`
-  flex: 1;
-  ${width}
-`
+function getBlogLink(blog: Blog) {
+  return (
+    (blog.node.fields && blog.node.fields.slug) ||
+    `/blog/${blog.node.fileAbsolutePath
+      .replace('.md', '')
+      .split('/')
+      .pop()}`
+  )
+}
+const baseCategoryUrl = '/tags'
 
 export default function({ data }: { data: Blog }) {
   const {
-    node: { id, frontmatter, timeToRead },
+    node: { frontmatter, timeToRead },
   } = data
 
   frontmatter.categories = frontmatter.categories || []
-
+  var md5 = crypto.createHash('md5')
+  var aid = md5.update(data.node.fields.slug).digest('hex')
   return (
-    <BlogDetailLink blog={data}>
-      <Box mt="40px" mb="40px">
-        <Flex
-          alignItems={['center', 'center', 'center', 'flex-start']}
-          justifyContent={['center', 'center', 'center', 'flex-start']}
-          flexDirection={['column', 'column', 'column', 'row']}
-        >
-          <Background
-            width={[0.9, 0.9, 0.9, 0.35]}
-            height={[200]}
-            background={`url(${JSON.stringify(frontmatter.thumbnail)})`}
-            backgroundSize="cover"
-            backgroundPosition="center"
-            backgroundRepeat="no-repeat"
-          />
-          <BoxWithFlex width={[0.9, 0.9, 0.9, 0.65]} ml={[0, 0, 0, '30px']}>
-            <ColumnWithHeight
-              alignItems="flex-end"
-              justifyContent="space-between"
-            >
-              <Box width={[1]}>
-                <Text
-                  mt="20px"
-                  mb="10px"
-                  fontSize={['20px', '20px', '20px', '24px', '24px']}
-                  fontWeight="bold"
-                >
-                  {frontmatter.title}
-                </Text>
-                <Box>
-                  <InlineText
-                    color={theme.colors.gray[2]}
-                    fontSize={['12px', '14px']}
-                  >
-                    作者: {frontmatter.authors.join(',')}
-                    &nbsp;&nbsp; 发布于{formateDate(frontmatter.date)}
-                    &nbsp;&nbsp;阅读大概需要{timeToRead}分钟
-                    {frontmatter.categories && frontmatter.categories.length
-                      ? `  归档于${frontmatter.categories.map(o =>
-                          generateCategoryText(o)
-                        )}`
-                      : ''}
-                  </InlineText>
-                </Box>
-
-                <Row mt="10px">
-                  <Text lineHeight={1.75} fontSize={'16px'} mt="20px" mb="20px">
-                    {frontmatter.description}
-                  </Text>
-                </Row>
-              </Box>
-
-              <Button width="160px" p="0.4rem" fontSize="18px" theme={theme}>
-                阅读全文
-              </Button>
-            </ColumnWithHeight>
-          </BoxWithFlex>
-        </Flex>
-      </Box>
-    </BlogDetailLink>
+    <Link data-id={aid} className="scf-article-item scf-article-item--block" to={getBlogLink(data)}>
+      <div className="scf-article-item__img">
+        <div className="scf-article-item__img-inner">
+          <img src={frontmatter.thumbnail} alt={frontmatter.title} />
+        </div>
+      </div>
+      <div className="scf-article-item__content">
+        <div className="scf-article-item__title">
+          <h4>{frontmatter.title}</h4>
+        </div>
+        <div className="scf-article-item__intro">{frontmatter.description}</div>
+        {frontmatter.tags ? (
+          <div className="scf-article-item__seotag">
+            <span className="scf-article-item__statistics-item">
+              <i className="scf-icon scf-icon-view"></i>
+            </span>
+            {frontmatter.authors.join(',')} · {frontmatter.date.slice(2, 10)} ·
+            <div className="scf-article-item__con">
+              {frontmatter.tags.map((tag, index) => (
+                <Link to={`${baseCategoryUrl}/${tag}`} key={tag}>
+                  <span className="scf-seotag__item">{tag}</span>
+                  {index !== frontmatter.tags!.length - 1 && <span className="scf-seotag__slash">/</span>}
+                </Link>
+              ))}
+            </div>
+          </div>
+        ) : null}
+      </div>
+    </Link>
   )
 }

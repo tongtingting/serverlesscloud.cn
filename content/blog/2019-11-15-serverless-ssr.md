@@ -1,14 +1,18 @@
 ---
 title: NGW，前端新技术赛场：Serverless SSR 技术内幕
 description: 腾讯 IVWeb team（负责腾讯互动视频 NOW 直播、花样直播等产品） 经验分享~
+keywords: Serverless SSR,Serverless 新技术
 date: 2019-11-15
 thumbnail: https://img.serverlesscloud.cn/2020114/1578992366948-16e6e6a4c7f54ffb.png
 categories:
   - guides-and-tutorials
 authors:
-  - 腾讯IVWEB团队
+  - 腾讯 IVWEB 团队
 authorslink:
   - https://juejin.im/user/5a9f77666fb9a028c14a01eb
+tags:
+  - NGW
+  - Serverless SSR
 ---
 
 ## ▎目录：

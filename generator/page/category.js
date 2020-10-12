@@ -7,7 +7,12 @@ const BLOG_PAGESIZE = 10
 function createCategory(graphql, createPage) {
   return graphql(`
     query {
-      allMarkdownRemark(filter: { fileAbsolutePath: { regex: "//blog//" } }) {
+      allMarkdownRemark(
+        filter: {
+          frontmatter: { categories: { nin: "guides-and-tutorials" } }
+          fileAbsolutePath: { regex: "/blog/" }
+        }
+      ) {
         group(field: frontmatter___categories) {
           totalCount
           categories: fieldValue
@@ -20,7 +25,6 @@ function createCategory(graphql, createPage) {
     }
 
     const categories = result.data.allMarkdownRemark.group
-
     categories.forEach(({ categories, totalCount }) => {
       const pages = Math.ceil(totalCount / BLOG_PAGESIZE)
       new Array(pages).fill(0).forEach((o, page) => {

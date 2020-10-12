@@ -1,6 +1,7 @@
 ---
 title: 三分钟入坑指北 🔜 Docsify + Serverless Framework 快速创建个人博客系统
 description: 通过 Serverless Website 组件快速构建一个 Serverless docsify 个人博客系统。
+keywords: Docsify,个人博客系统,Serverless Website,Serverless docsify
 date: 2019-12-14
 thumbnail: https://img.serverlesscloud.cn/20191217/1576565954158-docsify.png
 categories:
@@ -9,6 +10,9 @@ authors:
   - Aceyclee
 authorslink:
   - https://www.zhihu.com/people/Aceyclee
+tags:
+  - Wintersmith
+  - Docsify
 ---
 
 之前由于学摄影的关系，为了提高自己的审美，顺便锻炼下自己的英文能力，翻译了不少国外艺术类的 [文章](https://www.zhihu.com/collection/291724553)。最近一直想搭一个个人博客来存放这些内容，又懒得折腾建站，遂一直搁置。
@@ -124,8 +128,15 @@ $ sls --debug
 
 虽然这只是一个非常简单的 demo，但是不难看出，Serverless Framework 在快速部署方面的强大能力。比如集成了微信扫描二维码，就直接让我们避开了繁琐的云服务的账号注册、配置的环节。而你需要做的，只是根据 docsify 自身的能力，进行网站的定制而已。通过这两个工具的结合使用，即使编程小白也能快速搭建起自己的个人博客！✌️
 
+
+
+---
+<div id='scf-deploy-iframe-or-md'></div>
+
+---
+
 > **传送门：**
-> - GitHub: [github.com/serverless](https://github.com/serverless/serverless/blob/master/README_CN.md) 
+> - GitHub: [github.com/serverless](https://github.com/serverless/serverless/blob/master/README_CN.md)
 > - 官网：[serverless.com](https://serverless.com/)
 
 欢迎访问：[Serverless 中文网](https://serverlesscloud.cn/)，您可以在 [最佳实践](https://serverlesscloud.cn/best-practice) 里体验更多关于 Serverless 应用的开发！😝

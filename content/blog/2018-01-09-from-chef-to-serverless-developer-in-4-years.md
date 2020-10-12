@@ -1,6 +1,7 @@
 ---
 title: 我是如何在四年时间里，从厨师转行为 Serverless 应用开发者
 description: 我是厨师出身，现在成为了一名 Serverless 应用开发者。
+keywords: Serverless 应用开发,Serverless 管理,厨师转行为 Serverless 应用开发者
 date: 2018-01-09
 thumbnail: 'https://main.qcloudimg.com/raw/14f1c8eed372e76c1b139703b2f6d0fa.jpg'
 categories:
@@ -14,6 +15,9 @@ translators:
   - Aceyclee
 translatorslink: 
   - https://www.zhihu.com/people/Aceyclee
+tags:
+  - 应用开发
+  - Serverless
 ---
 我的软件开发入行经历非常有趣 —— 我一开始其实是厨师。
 

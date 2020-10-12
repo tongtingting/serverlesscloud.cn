@@ -1,6 +1,7 @@
 ---
 title: 生存指南之 CORS + API Gateway
 description: 本文介绍了跨域资源共享的基本知识，以及如何避免云函数上 Serverless web API 的问题
+keywords: CORS,API Gateway,Serverless web API 
 date: 2018-01-16
 thumbnail: https://img.serverlesscloud.cn/20191231/1577795409089-CORS_principle.png
 categories:
@@ -14,6 +15,9 @@ translators:
   - Aceyclee
 translatorslink: 
   - https://www.zhihu.com/people/Aceyclee
+tags:
+  - CORS
+  - API 网关
 ---
 
 构建 Web API 是 Serverless 应用中最流行的用例之一，您能在不增加其他操作开销的情况下，获得简单、可扩展的后端优势。

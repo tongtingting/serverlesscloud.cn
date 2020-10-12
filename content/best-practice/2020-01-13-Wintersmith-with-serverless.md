@@ -1,6 +1,7 @@
 ---
 title: 使用 Wintersmith + Serverless Framework 快速创建个人站点
 description: 通过 Serverless Website 组件快速构建一个 Serverless Wintersmith 个人站点。
+keywords: Wintersmith,Wintersmith 站点,Serverless Framework 快速创建个人站点
 date: 2020-01-13
 thumbnail: https://img.serverlesscloud.cn/2020113/1578918119146-WINTERS.png
 categories:
@@ -9,6 +10,9 @@ authors:
   - Tabor
 authorslink:
   - https://canmeng.net
+tags:
+  - Serverless
+  - Wintersmith
 ---
 首先我们来介绍下，Wintersmith 是一个简单而灵活的静态站点生成器。采用 markdown 构建，这个是我们的基础条件。
 
@@ -114,8 +118,15 @@ $ sls --debug
 
 虽然这只是一个非常简单的示例，但是不难看出，Serverless Framework 在快速部署方面的强大能力。比如集成了微信扫描二维码，就直接让我们避开了繁琐的云服务的账号注册、配置的环节。而你需要做的，只是根据 Wintersmith 自身的能力，进行网站的定制。
 
+
+
+---
+<div id='scf-deploy-iframe-or-md'></div>
+
+---
+
 > **传送门：**
-> - GitHub: [github.com/serverless](https://github.com/serverless/serverless/blob/master/README_CN.md) 
+> - GitHub: [github.com/serverless](https://github.com/serverless/serverless/blob/master/README_CN.md)
 > - 官网：[serverless.com](https://serverless.com/)
 
 欢迎访问：[Serverless 中文网](https://serverlesscloud.cn/)，您可以在 [最佳实践](https://serverlesscloud.cn/best-practice) 里体验更多关于 Serverless 应用的开发！

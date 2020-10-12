@@ -1,6 +1,7 @@
 ---
 title: "2018 年社区调查：Serverless 使用率大幅增长"
 description: "我们曾在开发社区进行问卷调查，询问 Serverless 的使用情况。它的使用率增长连我们自己都惊讶不已，下面来看看数据。"
+keywords: Serverless 社区调查,Serverless 使用情况,Serverless 数据
 date: 2018-07-19
 thumbnail: 'https://main.qcloudimg.com/raw/8a0db1c9fd8b51c15d0b006291d52bf5.jpg'
 categories:
@@ -11,10 +12,13 @@ authors:
   - AndreaPasswater
 authorslink:
   - https://serverless.com/author/andreapasswater/
-translators: 
+translators:
   - Aceyclee
-translatorslink: 
+translatorslink:
   - https://www.zhihu.com/people/Aceyclee
+tags:
+  - Component
+  - Serverless
 ---
 
 我们在 Serverless 社区进行了一项面向所有开发者的 Serverless 使用情况调查。我们期望能获得一些有意思的数据，然后与大家分享。
@@ -112,7 +116,20 @@ translatorslink:
 
 ## 基于数据得出的关键要点
 
-- Serverless 正在快速发展。几个关键指标均是去年的 2 倍。不仅仅是小公司，大企业也在迅速为核心采用 Serverless 技术。
-- Serverless 的运维监控是目前普及 Serverless 的最大卡点。
+- serverless 正在快速发展。几个关键指标均是去年的 2 倍。不仅仅是小公司，大企业也在迅速为核心采用 Serverless 技术。
+- serverless 的运维监控是目前普及 Serverless 的最大卡点。
 - 与去年相比，使用多个云厂商的人数增加，这只会使 [CloudEvents](https://cloudevents.io/) 等项目以及其他支持选择供应商的计划更加重要。
 - 对于许多人来说，Serverless 是他们第一次接触云服务。这意味着 Serverless 已经在改变开发人员的工作方式，提高云服务的使用。
+
+
+
+---
+<div id='scf-deploy-iframe-or-md'></div>
+
+---
+
+> **传送门：**
+> - GitHub: [github.com/serverless](https://github.com/serverless/serverless/blob/master/README_CN.md)
+> - 官网：[serverless.com](https://serverless.com/)
+
+欢迎访问：[Serverless 中文网](https://serverlesscloud.cn/)，您可以在 [最佳实践](https://serverlesscloud.cn/best-practice) 里体验更多关于 Serverless 应用的开发！

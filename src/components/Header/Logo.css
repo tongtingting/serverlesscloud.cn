@@ -1,0 +1,29 @@
+.scf-logo-wrap {
+  display: flex;
+  align-items: center;
+}
+.logo-image {
+  width: 212px;
+  height: 41px;
+}
+.scf-logo-wrap__text {
+  font-size: 18px;
+  color: #8c8c8c;
+  margin-left: 8px;
+}
+
+@media screen and (max-width: 992px) {
+  .scf-logo-wrap {
+    margin-left: 15px;
+  }
+  .logo-image {
+    width: 180px;
+    height: 26px;
+    position: relative;
+    left: -10px;
+    top: 2px;
+  }
+  .logo-image-footer {
+    top: -2px;
+  }
+}

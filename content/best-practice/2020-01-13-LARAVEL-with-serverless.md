@@ -1,6 +1,7 @@
 ---
 title: Laravel + Serverless Framework 快速创建 CMS 内容管理系统
 description: 通过 Serverless Laravel 组件快速构建一个 Serverless CMS 内容管理系统
+keywords: Serverless Laravel,CMS 内容管理系统,构建Serverless CMS内容管理系统
 date: 2020-01-13
 thumbnail: https://img.serverlesscloud.cn/20191226/1577353083364-laravel.png
 categories:
@@ -9,6 +10,9 @@ authors:
   - Tabor
 authorslink:
   - https://canmeng.net
+tags:
+  - Wintersmith
+  - Laravel
 ---
 
 今天，为大家带来一篇 Laravel + Serverless Framework 的综合实战，里面信息量有点多，大家仔细看哦～
@@ -125,14 +129,14 @@ APP_STORAGE=/tmp
 
 # 视图文件编译路径
 VIEW_COMPILED_PATH=/tmp/storage/framework/views
- 
+
 # 由于是无服务函数，所以没法存储 session 在硬盘上，如果不需要 sessions，可以使用 array
 # 如果需要你可以将 session 存储到 cookie 或者数据库中
 SESSION_DRIVER=array
- 
+
 # 建议将错误日志输出到控制台，方便云端去查看
 LOG_CHANNEL=stderr
- 
+
 # 应用的 storage 目录必须为 /tmp
 APP_STORAGE=/tmp
 ```
@@ -169,7 +173,7 @@ $ touch serverless.yml
 MyComponent:
 component: "@serverless/tencent-laravel"
 inputs:
-region: ap-guangzhou 
+region: ap-guangzhou
 functionName: laravel-function
 code: ./
 functionConf:
@@ -196,8 +200,15 @@ serverless --debug
 
 ![完成效果](https://img.serverlesscloud.cn/2020113/1578915365153-kru2vmr2j2%5B1%5D.png)
 
+
+
+---
+<div id='scf-deploy-iframe-or-md'></div>
+
+---
+
 > **传送门：**
-> - GitHub: [github.com/serverless](https://github.com/serverless/serverless/blob/master/README_CN.md) 
+> - GitHub: [github.com/serverless](https://github.com/serverless/serverless/blob/master/README_CN.md)
 > - 官网：[serverless.com](https://serverless.com/)
 
 欢迎访问：[Serverless 中文网](https://serverlesscloud.cn/)，您可以在 [最佳实践](https://serverlesscloud.cn/best-practice) 里体验更多关于 Serverless 应用的开发！
